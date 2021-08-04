@@ -50,6 +50,8 @@ function mouseClick() {
 }
 
 function deleteNote(element) {
+	// Don't delete notes when CTRL is pressed
+	if(controlPressed) { return; }
 	// Find textarea ID
 	var id = parseInt(element.getElementsByTagName("TEXTAREA")[0].id);
 
@@ -104,11 +106,26 @@ function contentUpdated(id) {
 	localStorage.setItem(id, JSON.stringify(retrievedNoteObj));
 }
 
+function disableAllTextareas() {
+	var textareasAry = document.getElementsByTagName("textarea");
+	for(let i = 0; i < textareasAry.length; i++) {
+		textareasAry[i].disabled = true;
+
+	}
+}
+
+function enableAllTextareas() {
+		var textareasAry = document.getElementsByTagName("textarea");
+		for(let i = 0; i < textareasAry.length; i++) {
+			textareasAry[i].disabled = false;
+		}
+}
+
 function logKeyDown(e) {
-  if(e.code == "ControlLeft") { controlPressed = true; }
+  if(e.code == "ControlLeft") { controlPressed = true; disableAllTextareas(); }
   if(e.code == "Escape") { document.activeElement.blur(); }
 }
 
 function logKeyUp(e) {
-  if(e.code == "ControlLeft") { controlPressed = false; }
+  if(e.code == "ControlLeft") { controlPressed = false; enableAllTextareas(); }
 }
