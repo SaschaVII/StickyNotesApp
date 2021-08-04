@@ -106,6 +106,7 @@ function contentUpdated(id) {
 
 function logKeyDown(e) {
   if(e.code == "ControlLeft") { controlPressed = true; }
+  if(e.code == "Escape") { document.activeElement.blur(); }
 }
 
 function logKeyUp(e) {
