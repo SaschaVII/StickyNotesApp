@@ -1,8 +1,6 @@
-//Global Variables
-var controlPressed = false;
-
+// Evenet Handlers
 document.addEventListener('keydown', logKeyDown);
-document.addEventListener('keyup', logKeyUp);
+document.querySelector("#main").addEventListener("mousedown", mouseClick);
 
 window.onload = function() {
 	retrieveNotesLocal();
@@ -39,8 +37,8 @@ function AddNote(id, xPos, yPos, color, content = "") {
 	div.setAttribute("style", `top: ${yPos}px; left: ${xPos}px; background-color: ${color};`);
 };
 
-function mouseClick() {
-	if (controlPressed) {
+function mouseClick(e) {
+	if (e.button == 0 && e.ctrlKey) {
 		var xPos = event.clientX;
 		var yPos = event.clientY;
 		var color = randomColor();
@@ -122,10 +120,5 @@ function enableAllTextareas() {
 }
 
 function logKeyDown(e) {
-  if(e.code == "ControlLeft") { controlPressed = true; disableAllTextareas(); }
   if(e.code == "Escape") { document.activeElement.blur(); }
-}
-
-function logKeyUp(e) {
-  if(e.code == "ControlLeft") { controlPressed = false; enableAllTextareas(); }
 }
