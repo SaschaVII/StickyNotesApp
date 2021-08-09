@@ -5,8 +5,6 @@ document.querySelector("#main").addEventListener("mousedown", mouseClick);
 window.onload = function() {
 	retrieveNotesLocal();
 };
-
-// Content needs to be implemented still!!
 function AddNote(id, xPos, yPos, color, content = "") {
 	if(document.getElementById("tutorial-text").style.display != "none") {
 		document.getElementById("tutorial-text").style.display = "none";
@@ -39,8 +37,8 @@ function AddNote(id, xPos, yPos, color, content = "") {
 
 function mouseClick(e) {
 	if (e.button == 0 && e.ctrlKey) {
-		var xPos = event.clientX;
-		var yPos = event.clientY;
+		var xPos = e.clientX;
+		var yPos = e.clientY;
 		var color = randomColor();
 		AddNote(localStorage.length, xPos-150, yPos-20, color);
 		storeNoteLocal(localStorage.length, xPos-150, yPos-20, color, "");
@@ -48,8 +46,6 @@ function mouseClick(e) {
 }
 
 function deleteNote(element) {
-	// Don't delete notes when CTRL is pressed
-	if(controlPressed) { return; }
 	// Find textarea ID
 	var id = parseInt(element.getElementsByTagName("TEXTAREA")[0].id);
 
